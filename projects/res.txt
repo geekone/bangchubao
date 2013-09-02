@@ -1,3 +1,13 @@
 http://www.bootcss.com/
 http://www.meishij.net/
 
+
+module mysql learn
+http://www.oschina.net/code/snippet_12_3820
+http://cnodejs.org/topic/501b5c6bf767cc9a51a0d3ef
+http://wangdf-jee.iteye.com/blog/1396773
+
+http://www.2cto.com/kf/201204/126593.html
+
+api
+https://github.com/felixge/node-mysql

@@ -6,6 +6,24 @@
  * To change this template use File | Settings | File Templates.
  */
 
+//var mysql = require('mysql'),client = null;
+
+var db_options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: '',
+    database: 'bangchubao'
+};
+
+exports.db_options = db_options;
+
+//exports.client =   mysql.createConnection(db_options);
+
+//client.query('USE bangchubao');
+
+//exports.client = client;
+
 
 var winston = require('winston');
 exports.Logger = new(winston.Logger)({

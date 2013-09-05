@@ -50,7 +50,9 @@ app.get('/', routes.index);
 
 /**        admin     **/
 app.get('/admin',admin.index);
-
+app.get('/admin/categories',admin.categories);
+app.get('/admin/caixi/:category',admin.caixi);
+app.get('/admin/caipu/:id',admin.caipu);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

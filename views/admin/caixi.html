@@ -1,0 +1,28 @@
+<ul class="breadcrumb">
+    <li><a href="#">管理</a> <span class="divider">/</span></li>
+    <li><a href="#">菜系</a> <span class="divider">/</span></li>
+    <li class="active">菜系列表</li>
+</ul>
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>连接</th>
+        <th>操作</th>
+    </tr>
+
+    <% cailist.forEach(function(cai){
+
+    %>
+
+    <tr>
+        <td><%- cai.id%></td>
+        <td><%- cai.title %></td>
+        <td><%- cai.url %></td>
+        <td><a href="/admin/caipu/<%-cai.id %>">go</a></td>
+    </tr>
+
+    <%
+    });
+    %>
+</table>

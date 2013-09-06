@@ -24,24 +24,39 @@ exports.categories = function(req,res,next){
      });
 };
 
-//通过分类CAIXI查找下面的
+//通过分类CAIXI查找下面的未发布
 exports.caixi = function(req,res,next){
     var category = req.params.category;
     client = mysql.createConnection(config.db_options);
     client.connect();
-    client.query("SELECT * FROM zhms_caixi where catestr=? limit 10",[category],function(err,results){
+    client.query("SELECT * FROM zhms_caixi where catestr=? and publish=0 limit 10",[category],function(err,results){
         if (err) {
             console.log(err);
             return;
         }
-        console.log(results.length);
         client.end();
         res.render('admin/caixi',{layout:'admin/layout',cailist:results});
     });
-
 };
 
-exports.caipu = function(req,res,next){
+//已发布的
+exports.caixipublish = function(req,res,next){
+   var category = req.param.category;
+    client = mysql.createConnection(config.db_options);
+    client.connect();
+    client.query("SELECT * FROM zhms_caixi where catestr=? and publish = 1 limit 10",[category],function(err,results){
+        if (err) {
+            console.log(err);
+            return;
+        }
+        client.end();
+        res.render('admin/caixipublish',{layout:'admin/layout',cailist:results});
+    });
+};
+
+
+//更新菜谱
+exports.editcaipu = function(req,res,next){
     var id = req.params.id;
     client = mysql.createConnection(config.db_options);
     client.connect();
@@ -50,8 +65,26 @@ exports.caipu = function(req,res,next){
             console.log(err);
             return;
         }
-        console.log(results);
         client.end();
-        res.render('admin/caipu',{layout:'admin/layout',caipu:results[0]});
+        res.render('admin/editcaipu',{layout:'admin/layout',caipu:results[0]});
     });
+};
+
+exports.updatecaipu = function(req,res,next){
+    _title = req.body.title;
+    _content = req.body.content;
+    _id = req.body.id;
+    client = mysql.createConnection(config.db_options);
+    client.connect();
+
+    client.query('update zhms_caixi set content = ? , publish = ? where id=?',[_content,1,_id],function(err){
+        if(err){
+            console.log(err);
+            return;
+        }
+        client.end();
+    });
+
+
+    res.send("ok")
 };

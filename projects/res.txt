@@ -11,3 +11,6 @@ http://www.2cto.com/kf/201204/126593.html
 
 api
 https://github.com/felixge/node-mysql
+
+editor:
+https://github.com/kindsoft/kindeditor

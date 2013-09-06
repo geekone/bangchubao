@@ -51,8 +51,16 @@ app.get('/', routes.index);
 /**        admin     **/
 app.get('/admin',admin.index);
 app.get('/admin/categories',admin.categories);
+
+//通过分类查找
+//未发布
 app.get('/admin/caixi/:category',admin.caixi);
-app.get('/admin/caipu/:id',admin.caipu);
+//已经发布
+app.get('/admin/caixipublish/:category',admin.caixipublish);
+
+//更新菜谱
+app.get('/admin/editcaipu/:id',admin.editcaipu);
+app.post('/admin/updatecaipu',admin.updatecaipu);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

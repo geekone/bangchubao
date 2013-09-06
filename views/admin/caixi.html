@@ -1,13 +1,13 @@
 <ul class="breadcrumb">
     <li><a href="#">管理</a> <span class="divider">/</span></li>
     <li><a href="#">菜系</a> <span class="divider">/</span></li>
-    <li class="active">菜系列表</li>
+    <li class="active">菜系列表(未发布)</li>
 </ul>
 <table class="table table-bordered">
     <tr>
         <th>编号</th>
         <th>名称</th>
-        <th>连接</th>
+        <th>IMG</th>
         <th>操作</th>
     </tr>
 
@@ -18,8 +18,8 @@
     <tr>
         <td><%- cai.id%></td>
         <td><%- cai.title %></td>
-        <td><%- cai.url %></td>
-        <td><a href="/admin/caipu/<%-cai.id %>">go</a></td>
+        <td><img src="/uploads/<%- cai.img %>" style="height:50px;width:50px;" title="<%- cai.title %>"/></td>
+        <td><a href="/admin/editcaipu/<%-cai.id %>">edit</a></td>
     </tr>
 
     <%

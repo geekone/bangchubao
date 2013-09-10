@@ -12,45 +12,71 @@ exports.index = function(req, res,next){
 
 //所有分类
 exports.categories = function(req,res,next){
-    //需要在开启连接然后关闭
+
+    var page = req.query.p;
+    if(!page){
+        page = 1;
+    }else{
+        page = parseInt(page);
+    }
+
+    console.log(page);
+
     client = mysql.createConnection(config.db_options);
     client.connect();
-    client.query('SELECT * FROM zhms_category',function selectCb(err, results, fields) {
+    client.query('SELECT * FROM zhms_category limit ?,10 ',[(page-1)*10],function selectCb(err, results, fields) {
        if (err) {
            console.log(err);
        }
-     client.end();
-       res.render('admin/categories',{layout:'admin/layout',categorylist:results});
+        client.end();
+       res.render('admin/categories',{layout:'admin/layout',page:page,categorylist:results,cateLen: results.length});
      });
 };
 
 //通过分类CAIXI查找下面的未发布
 exports.caixi = function(req,res,next){
+
+    var page = req.query.p;
+    if(!page){
+        page = 1;
+    }else{
+        page = parseInt(page);
+    }
+
+
     var category = req.params.category;
     client = mysql.createConnection(config.db_options);
     client.connect();
-    client.query("SELECT * FROM zhms_caixi where catestr=? and publish=0 limit 10",[category],function(err,results){
+    client.query("SELECT * FROM zhms_caixi where catestr=? and publish=0 limit ?,10",[category,(page-1)*10],function(err,results){
         if (err) {
             console.log(err);
             return;
         }
         client.end();
-        res.render('admin/caixi',{layout:'admin/layout',cailist:results});
+        res.render('admin/caixi',{layout:'admin/layout',cailist:results,page:page,caixiLen: results.length});
     });
 };
 
 //已发布的
 exports.caixipublish = function(req,res,next){
-   var category = req.param.category;
+
+    var page = req.query.p;
+    if(!page){
+        page = 1;
+    }else{
+        page = parseInt(page);
+    }
+
+   var category = req.params.category;
     client = mysql.createConnection(config.db_options);
     client.connect();
-    client.query("SELECT * FROM zhms_caixi where catestr=? and publish = 1 limit 10",[category],function(err,results){
+    client.query("SELECT * FROM zhms_caixi where catestr=? and publish = 1 limit ?,10",[category,(page-1)*10],function(err,results){
         if (err) {
             console.log(err);
             return;
         }
         client.end();
-        res.render('admin/caixipublish',{layout:'admin/layout',cailist:results});
+        res.render('admin/caixipublish',{layout:'admin/layout',cailist:results,page:page,caixiLen: results.length});
     });
 };
 
@@ -84,7 +110,5 @@ exports.updatecaipu = function(req,res,next){
         }
         client.end();
     });
-
-
     res.send("ok")
 };

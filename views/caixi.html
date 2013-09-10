@@ -1,0 +1,54 @@
+<div class="masthead">
+    <h3 class="muted">3tv3</h3>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <li class="active"><a href="/">首页</a></li>
+                    <li><a href="/caixi/chuancai">chuancai</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div><!-- /.navbar -->
+</div>
+
+<hr/>
+
+
+<div class="row-fluid">
+    <ul class="thumbnails">
+       <%
+        caixilist.slice(0,6).forEach(function(caixi){ %>
+        <li class="span2">
+            <div class="thumbnail">
+                <img alt="<%- caixi.title %>" title="<%- caixi.title %>" style="width: 150px; height: 150px;" src="/uploads/<%- caixi.img %>"/>
+                <div class="caption">
+                    <h5><%- caixi.title %></h5>
+                    <p>Cras justo odio.</p>
+                    <p><a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a></p>
+                </div>
+            </div>
+        </li>
+        <% }); %>
+    </ul>
+
+    <ul class="thumbnails">
+        <%
+        caixilist.slice(6,12).forEach(function(caixi){ %>
+        <li class="span2">
+            <div class="thumbnail">
+                <img alt="<%- caixi.title %>" title="<%- caixi.title %>" style="width: 150px; height: 150px;" src="/uploads/<%- caixi.img %>"/>
+                <div class="caption">
+                    <h5><%- caixi.title %></h5>
+                    <p>Cras justo odio.</p>
+                    <p><a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a></p>
+                </div>
+            </div>
+        </li>
+        <% }); %>
+    </ul>
+
+</div>
+
+<hr/>

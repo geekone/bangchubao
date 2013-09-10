@@ -20,8 +20,8 @@
         <td><%- cate.name %></td>
         <td><%- cate.ename %></td>
         <td>
-            <a href="/admin/caixi/<%-cate.ename%>">no-publish</a>|
-            <a href="/admin/caixipublish/<%-cate.ename%>">no-publish</a>
+            <a href="/admin/caixi/<%-cate.ename%>">未发布</a>|
+            <a href="/admin/caixipublish/<%-cate.ename%>">发布</a>
         </td>
     </tr>
 
@@ -29,3 +29,13 @@
     });
     %>
 </table>
+
+<% if(page-1){ %>
+<span style="float:left"><a title="上一页" href="?p=<%= page-1 %>">上一页</a></span>
+
+<% } %>
+
+<% if(cateLen==10){ %>
+<span style="float:right"><a title="下一页" href="?p=<%= page+1 %>">下一页</a></span>
+<% } %>
+

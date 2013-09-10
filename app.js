@@ -47,10 +47,14 @@ function errorHandler(err, req, res, next) {
 /**        home     **/
 app.get('/', routes.index);
 
+//菜系
+app.get('/caixi/:category',routes.caixi);
+
+
 
 /**        admin     **/
 app.get('/admin',admin.index);
-app.get('/admin/categories',admin.categories);
+app.get('/admin/categories/?',admin.categories);
 
 //通过分类查找
 //未发布

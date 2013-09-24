@@ -4,10 +4,45 @@ var mysql = require('mysql');
 
 
 exports.index = function(req, res,next){
+    checklogin(req,res,next);
     res.render('admin/index',{layout:'admin/layout'});
     //TODO 补500 404
 //    next("this is admin error");
 };
+
+
+//跳转到用户登录或用户POST登录
+exports.login = function(req,res,next){
+    if(req.method == 'GET'){
+        res.render("admin/login",{layout:false});
+    }else if(req.method == 'POST'){
+        _email = req.body.email;
+        _passwd = req.body.passwd;
+        if(_email == 'ajaxj@qq.com' && _passwd =='1234'){
+             req.session.logined = true;
+            res.redirect("/admin/");
+        }else{
+            res.render("admin/login",{layout:false});
+        }
+    }
+};
+
+//登录退出
+exports.loginout = function(req,res,next){
+    req.session.logined = false;
+    res.redirect('/admin/login');
+}
+
+//验证用户登录函数
+var checklogin = function(req,res,next){
+    if(!req.session.logined){
+        res.redirect("/admin/login");
+    }
+
+};
+
+
+
 
 
 //所有分类
@@ -111,4 +146,16 @@ exports.updatecaipu = function(req,res,next){
         client.end();
     });
     res.send("ok")
+};
+
+
+/***************  测试 ******************/
+//session test
+exports.sessiontest = function(req,res,next){
+         if(req.session.logined){
+             res.send("session logined ok:" +req.session.logined );
+         }else{
+             req.session.logined = true;
+             res.send("session logined no ok")
+         }
 };

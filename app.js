@@ -50,10 +50,12 @@ app.get('/', routes.index);
 //菜系
 app.get('/caixi/:category',routes.caixi);
 
-
-
 /**        admin     **/
 app.get('/admin',admin.index);
+app.get('/admin/login/?',admin.login);          //跳转到登录
+app.post('/admin/login/?',admin.login);         //POST登录
+app.get('/admin/loginout/?',admin.loginout);    //退出登录
+
 app.get('/admin/categories/?',admin.categories);
 
 //通过分类查找
@@ -65,6 +67,12 @@ app.get('/admin/caixipublish/:category',admin.caixipublish);
 //更新菜谱
 app.get('/admin/editcaipu/:id',admin.editcaipu);
 app.post('/admin/updatecaipu',admin.updatecaipu);
+
+
+//测试部分
+app.get('/admin/sessiontest/?',admin.sessiontest);
+
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

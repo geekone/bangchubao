@@ -56,6 +56,11 @@ app.get('/admin/login/?',admin.login);          //跳转到登录
 app.post('/admin/login/?',admin.login);         //POST登录
 app.get('/admin/loginout/?',admin.loginout);    //退出登录
 
+
+app.get('/admin/users/?',admin.users);
+app.get('/admin/adduser/?',admin.adduser);
+app.post('/admin/adduser/?',admin.adduser);
+
 app.get('/admin/categories/?',admin.categories);
 
 //通过分类查找

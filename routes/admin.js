@@ -18,7 +18,7 @@ exports.login = function(req,res,next){
     }else if(req.method == 'POST'){
         _email = req.body.email;
         _passwd = req.body.passwd;
-        if(_email == 'ajaxj@qq.com' && _passwd =='1234'){
+        if(_email == '1' && _passwd =='1'){
              req.session.logined = true;
             res.redirect("/admin/");
         }else{
@@ -41,7 +41,45 @@ var checklogin = function(req,res,next){
 
 };
 
+//用户列表
+exports.users = function(req,res,next){
+         checklogin(req,res,next);
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query("SELECT * FROM users",function(err,results){
+            if (err) {
+                console.log(err);
+                return;
+            }
+            client.end();
+            //TODO 没做分页
+            res.render("admin/users",{layout:'admin/layout',users:results});
+        });
+};
 
+//添加用户
+exports.adduser = function(req,res,next){
+        checklogin(req,res,next);
+        if(req.method == 'GET'){
+            res.render('admin/adduser',{layout:'admin/layout'});
+        }else if(req.method == 'POST'){
+            _username = req.body.username;
+            _nickname = req.body.nickname;
+            _email = req.body.email;
+            _password = req.body.password;
+            client = mysql.createConnection(config.db_options);
+            client.connect();
+            client.query("INSERT INTO users SET username =?,nickname=?,email=?,passwd=? ",[_username,_nickname,_email,_password],function(err,results){
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                client.end();
+                res.redirect("/admin/users");
+            });
+
+        }
+};
 
 
 

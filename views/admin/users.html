@@ -1,0 +1,26 @@
+<ul class="breadcrumb">
+    <li><a href="#">管理</a> <span class="divider">/</span></li>
+    <li><a href="#">用户</a> <span class="divider">/</span></li>
+    <li class="active">用户列表</li>
+</ul>
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>昵称</th>
+        <th>邮件</th>
+        <th>操作</th>
+    </tr>
+    <% users.forEach(function(user){ %>
+    <tr>
+          <td><%- user.id %></td>
+        <td><%- user.username %></td>
+        <td><%- user.nickname %></td>
+        <td><%- user.email %></td>
+        <td>
+            <a href="/admin/deluser/<%-user.id %>">del</a>|
+            <a href="/admin/edituser/<%-user.id %>">edit</a>
+        </td>
+    </tr>
+    <% }); %>
+</table>

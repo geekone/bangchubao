@@ -60,6 +60,9 @@ app.get('/admin/loginout/?',admin.loginout);    //退出登录
 app.get('/admin/users/?',admin.users);
 app.get('/admin/adduser/?',admin.adduser);
 app.post('/admin/adduser/?',admin.adduser);
+app.get('/admin/deluser/?',admin.deluser);
+app.get('/admin/edituser/?',admin.edituser);
+app.post('/admin/edituser/?',admin.edituser);
 
 app.get('/admin/categories/?',admin.categories);
 

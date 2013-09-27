@@ -57,6 +57,22 @@ exports.users = function(req,res,next){
         });
 };
 
+exports.deluser = function(req,res,next){
+    checklogin(req,res,next);
+    var uid = req.query.uid;
+    client = mysql.createConnection(config.db_options);
+    client.connect();
+    client.query("DELETE FROM users where id=?",[uid],function(err,results){
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log(results);
+        client.end();
+        res.redirect("/admin/users");
+    });
+}
+
 //添加用户
 exports.adduser = function(req,res,next){
         checklogin(req,res,next);
@@ -79,6 +95,44 @@ exports.adduser = function(req,res,next){
             });
 
         }
+};
+
+exports.edituser = function(req,res,next){
+    checklogin(req,res,next);
+    if(req.method == 'GET'){
+        var uid = req.query.uid;
+
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query("SELECT * FROM users where id=?",[uid],function(err,results){
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log(results);
+            client.end();
+            res.render('admin/edituser',{layout:'admin/layout',user:results[0]});
+        });
+
+    }else if(req.method == 'POST'){
+        _uid = req.query.uid;
+        _username = req.body.username;
+        _nickname = req.body.nickname;
+        _email = req.body.email;
+        _passwd = req.body.passwd;
+
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query('update users set username = ?,nickname=?,email=?,passwd=? where id=?',[_username,_nickname,_email,_passwd,_uid],function(err){
+            if(err){
+                console.log(err);
+                return;
+            }
+            client.end();
+            res.redirect("/admin/users");
+        });
+    }
+
 };
 
 

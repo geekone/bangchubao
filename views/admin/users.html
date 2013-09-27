@@ -18,8 +18,8 @@
         <td><%- user.nickname %></td>
         <td><%- user.email %></td>
         <td>
-            <a href="/admin/deluser/<%-user.id %>">del</a>|
-            <a href="/admin/edituser/<%-user.id %>">edit</a>
+            <a href="/admin/deluser?uid=<%-user.id %>">del</a>|
+            <a href="/admin/edituser?uid=<%-user.id %>">edit</a>
         </td>
     </tr>
     <% }); %>

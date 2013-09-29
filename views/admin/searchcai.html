@@ -1,7 +1,7 @@
 <ul class="breadcrumb">
     <li><a href="#">管理</a> <span class="divider">/</span></li>
     <li><a href="#">菜系</a> <span class="divider">/</span></li>
-    <li class="active">菜系列表(未发布)</li>
+    <li class="active">搜索</li>
 </ul>
 
 
@@ -38,12 +38,3 @@
     %>
 </table>
 
-
-<% if(page-1){ %>
-<span style="float:left"><a title="上一页" href="?p=<%= page-1 %>">上一页</a></span>
-
-<% } %>
-
-<% if(caixiLen==10){ %>
-<span style="float:right"><a title="下一页" href="?p=<%= page+1 %>">下一页</a></span>
-<% } %>

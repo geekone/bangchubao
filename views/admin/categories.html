@@ -20,6 +20,8 @@
         <td><%- cate.name %></td>
         <td><%- cate.ename %></td>
         <td>
+            <a href="/admin/delcategory?cid=<%-cate.id %>">del</a>|
+            <a href="/admin/editcategory?cid=<%-cate.id %>">edit</a>|
             <a href="/admin/caixi/<%-cate.ename%>">未发布</a>|
             <a href="/admin/caixipublish/<%-cate.ename%>">发布</a>
         </td>

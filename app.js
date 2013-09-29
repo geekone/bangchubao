@@ -56,25 +56,38 @@ app.get('/admin/login/?',admin.login);          //跳转到登录
 app.post('/admin/login/?',admin.login);         //POST登录
 app.get('/admin/loginout/?',admin.loginout);    //退出登录
 
-
+//user
 app.get('/admin/users/?',admin.users);
 app.get('/admin/adduser/?',admin.adduser);
 app.post('/admin/adduser/?',admin.adduser);
 app.get('/admin/deluser/?',admin.deluser);
 app.get('/admin/edituser/?',admin.edituser);
 app.post('/admin/edituser/?',admin.edituser);
+app.get('/admin/searchuser/?',admin.searchuser);
+app.post('/admin/searchuser/?',admin.searchuser);
 
+//category
 app.get('/admin/categories/?',admin.categories);
+app.get('/admin/addcategory/?',admin.addcategory);
+app.post('/admin/addcategory/?',admin.addcategory);
+app.get('/admin/editcategory/?',admin.editcategory);
+app.post('/admin/editcategory/?',admin.editcategory);
 
-//通过分类查找
-//未发布
+
+//caixi
+    //通过分类查找
+    //未发布
 app.get('/admin/caixi/:category',admin.caixi);
-//已经发布
+    //已经发布
 app.get('/admin/caixipublish/:category',admin.caixipublish);
-
-//更新菜谱
+    //更新菜谱
 app.get('/admin/editcaipu/:id',admin.editcaipu);
 app.post('/admin/updatecaipu',admin.updatecaipu);
+    //搜索菜
+app.get('/admin/searchcai/?',admin.searchcai);
+app.post('/admin/searchcai/?',admin.searchcai);
+
+
 
 
 //测试部分

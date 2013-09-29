@@ -41,22 +41,32 @@ var checklogin = function(req,res,next){
 
 };
 
+//******************  用户 ************************/
 //用户列表
 exports.users = function(req,res,next){
          checklogin(req,res,next);
+        var pagesize = 2            //每页数量
+        var page = req.query.p;     //当前页号
+        if(!page){
+            page = 1;
+        }else{
+            page = parseInt(page);
+        }
+
         client = mysql.createConnection(config.db_options);
         client.connect();
-        client.query("SELECT * FROM users",function(err,results){
+        client.query("SELECT * FROM users limit ?,?",[(page-1)*pagesize,pagesize],function(err,results){
             if (err) {
                 console.log(err);
                 return;
             }
             client.end();
             //TODO 没做分页
-            res.render("admin/users",{layout:'admin/layout',users:results});
+            res.render("admin/users",{layout:'admin/layout',users:results,page:page,usersLen: results.length,pagesize:pagesize});
         });
 };
 
+//删除用户
 exports.deluser = function(req,res,next){
     checklogin(req,res,next);
     var uid = req.query.uid;
@@ -97,6 +107,7 @@ exports.adduser = function(req,res,next){
         }
 };
 
+//修改用户
 exports.edituser = function(req,res,next){
     checklogin(req,res,next);
     if(req.method == 'GET'){
@@ -115,11 +126,11 @@ exports.edituser = function(req,res,next){
         });
 
     }else if(req.method == 'POST'){
-        _uid = req.query.uid;
-        _username = req.body.username;
-        _nickname = req.body.nickname;
-        _email = req.body.email;
-        _passwd = req.body.passwd;
+        var _uid = req.body.uid;
+        var _username = req.body.username;
+        var _nickname = req.body.nickname;
+        var _email = req.body.email;
+        var _passwd = req.body.passwd;
 
         client = mysql.createConnection(config.db_options);
         client.connect();
@@ -135,11 +146,34 @@ exports.edituser = function(req,res,next){
 
 };
 
+//查找
+exports.searchuser = function(req,res,next){
+    checklogin(req,res,next);
+    if(req.method == 'GET'){
+        res.redirect('/admin/users')
+    }else{
+        //TODO 只作了用户注册名的查找
+        _username = req.body.username;
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query('SELECT * FROM users WHERE username LIKE \'%' + _username +'%\'' , function(err,results){
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log(results)
+            client.end();
+            res.render('admin/searchuser',{layout:'admin/layout',users:results});
+        });
+    }
+}
 
+
+/**************　分类　*******************/
 
 //所有分类
 exports.categories = function(req,res,next){
-
+    checklogin(req,res,next);
     var page = req.query.p;
     if(!page){
         page = 1;
@@ -160,9 +194,71 @@ exports.categories = function(req,res,next){
      });
 };
 
+//删除分类
+exports.delcategory = function(req,res,next){
+    // TODO 可能会级联删除,先放一下
+};
+//添加
+exports.addcategory = function(req,res,next){
+    checklogin(req,res,next);
+    if(req.method == 'GET'){
+        res.render('admin/addcategory',{layout:'admin/layout'});
+    }else if(req.method == 'POST'){
+        _name = req.body.name;
+        _ename = req.body.ename;
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query("INSERT INTO zhms_category SET name=?,ename=?",[_name,_ename],function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            client.end()
+            res.redirect('/admin/categories');
+        });
+    }
+}
+
+//修改
+exports.editcategory = function(req,res,next){
+    checklogin(req,res,next);
+    if(req.method == 'GET'){
+        var cid = req.query.cid;
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query("SELECT * FROM zhms_category WHERE id =?",[cid],function(err,result){
+            if(err){
+                console.log(err);
+                return;
+            }
+            client.end();
+            res.render('admin/editcategory',{layout:'admin/layout',category:result[0]});
+        });
+    }else if(req.method == 'POST'){
+       var _cid = req.query.cid;
+       var _name = req.body.name;
+       var _ename = req.body.ename;
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query('UPDATE zhms_category SET name = ?,ename=? WHERE id=?',[_name,_ename,_cid],function(err){
+            if(err){
+                console.log(err);
+                return;
+            }
+            client.end();
+            res.redirect("/admin/categories");
+        });
+    }
+};
+
+
+
+//**********************  菜谱　*********************************
+
+
 //通过分类CAIXI查找下面的未发布
 exports.caixi = function(req,res,next){
-
+    checklogin(req,res,next);
     var page = req.query.p;
     if(!page){
         page = 1;
@@ -184,9 +280,10 @@ exports.caixi = function(req,res,next){
     });
 };
 
-//已发布的
-exports.caixipublish = function(req,res,next){
 
+//通过分类CAIXI查找下面的发布的
+exports.caixipublish = function(req,res,next){
+    checklogin(req,res,next);
     var page = req.query.p;
     if(!page){
         page = 1;
@@ -205,6 +302,28 @@ exports.caixipublish = function(req,res,next){
         client.end();
         res.render('admin/caixipublish',{layout:'admin/layout',cailist:results,page:page,caixiLen: results.length});
     });
+};
+
+
+//通过查找菜名，
+exports.searchcai = function(req,res,next){
+    checklogin(req,res,next);
+    if(req.mothod == 'GET'){
+        res.render('admin/searchcai');
+    }else{
+        _title = req.body.title;
+        client = mysql.createConnection(config.db_options);
+        client.connect();
+        client.query('SELECT * FROM zhms_caixi WHERE title LIKE \'%' + _title + '%\'',function(err,results){
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log(results);
+            client.end();
+            res.render('admin/searchcai',{layout:'admin/layout',cailist:results});
+        });
+    }
 };
 
 

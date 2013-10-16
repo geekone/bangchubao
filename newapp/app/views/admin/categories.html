@@ -1,0 +1,43 @@
+<ul class="breadcrumb">
+    <li><a href="#">管理</a> <span class="divider">/</span></li>
+    <li><a href="#">分类</a> <span class="divider">/</span></li>
+    <li class="active">分类列表</li>
+</ul>
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>拼音</th>
+        <th>操作</th>
+    </tr>
+
+    <% categorylist.forEach(function(cate){
+
+    %>
+
+    <tr>
+        <td><%- cate.id%></td>
+        <td><%- cate.name %></td>
+        <td><%- cate.ename %></td>
+        <td>
+            <a href="/admin/delcategory?cid=<%-cate.id %>">del</a>|
+            <a href="/admin/editcategory?cid=<%-cate.id %>">edit</a>|
+            <a href="/admin/caixi/<%-cate.ename%>">未发布</a>|
+            <a href="/admin/caixipublish/<%-cate.ename%>">发布</a>
+        </td>
+    </tr>
+
+    <%
+    });
+    %>
+</table>
+
+<% if(page-1){ %>
+<span style="float:left"><a title="上一页" href="?p=<%= page-1 %>">上一页</a></span>
+
+<% } %>
+
+<% if(cateLen==10){ %>
+<span style="float:right"><a title="下一页" href="?p=<%= page+1 %>">下一页</a></span>
+<% } %>
+

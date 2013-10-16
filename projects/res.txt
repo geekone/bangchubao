@@ -17,3 +17,7 @@ https://github.com/felixge/node-mysql
 
 editor:
 https://github.com/kindsoft/kindeditor
+
+
+架构参考:
+https://github.com/madhums/node-express-mongoose-demo

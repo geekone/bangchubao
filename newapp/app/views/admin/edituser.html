@@ -1,0 +1,40 @@
+<ul class="breadcrumb">
+    <li><a href="#">管理</a> <span class="divider">/</span></li>
+    <li><a href="#">用户</a> <span class="divider">/</span></li>
+    <li class="active">修改用户</li>
+</ul>
+<form class="form-horizontal" method="post" action="">
+    <input type="hidden" name="uid" value="<%- user.id %>"/>
+    <legend>修改用户</legend>
+    <div class="control-group">
+        <label class="control-label" for="username">用户名称</label>
+        <div class="controls">
+            <input type="text" id="username" name="username" value="<%- user.username %>">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="nickname">用户昵称</label>
+        <div class="controls">
+            <input type="text" id="nickname" name="nickname" value="<%- user.nickname %>">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="email">用户邮件</label>
+        <div class="controls">
+            <input type="text" id="email" name="email"  value="<%- user.email %>">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="passwd">用户密码</label>
+        <div class="controls">
+            <input type="text" id="passwd" name="passwd"  value="<%- user.passwd %>">
+        </div>
+    </div>
+
+
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">修改</button>
+        </div>
+    </div>
+</form>

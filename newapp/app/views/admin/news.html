@@ -1,0 +1,46 @@
+<!-- 面包屑 -->
+<ul class="breadcrumb">
+    <li><a href="/admin/">管理</a><span class="divider">/</span></li>
+    <li><a href="/admin/news">资讯</a><span class="divider">/</span></li>
+    <li class="active">资讯列表</li>
+</ul>
+
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th><th>标题</th><th>内容</th><th>时间</th><th>管理</th>
+    </tr>
+    <% newslist.forEach(function(news){%>
+    <tr>
+        <td><%- news.id%></td>
+        <td><%- news.title %></td>
+        <td><%- news.content %></td>
+        <td><%- news.createAt %></td>
+        <td>
+            <a href="/admin/editnews?id=<%-news.id%>">UP</a>|
+            <a href="/admin/delnews?id=<%-news.id%>">DEL</a>
+        </td>
+    </tr>
+    <%})%>
+</table>
+<hr/>
+<form class="form-horizontal" method="post" action="/admin/addnews">
+    <legend>添加新闻</legend>
+    <div class="controls-group">
+        <label class="control-label" for="title">标题</label>
+        <div class="controls">
+            <input type="text" id="title" name="title"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="content">内容</label>
+        <div class="controls">
+            <input type="text" id="content" name="content"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">添加</button>
+        </div>
+    </div>
+</form>

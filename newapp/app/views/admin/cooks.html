@@ -1,0 +1,45 @@
+<!-- 面包屑 -->
+<ul class="breadcrumb">
+    <li><a href="/admin/">管理</a><span class="divider">/</span></li>
+    <li><a href="/admin/cooks">Cooks</a><span class="divider">/</span></li>
+    <li class="active">Cook列表</li>
+</ul>
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th><th>名称</th><th>图片</th><th>建立时间</th><th>管理</th>
+    </tr>
+    <% cooklist.forEach(function(cook){%>
+    <tr>
+        <td><%- cook.id%></td>
+        <td><%- cook.title %></td>
+        <td><%- cook.img %></td>
+        <td><%- cook.createAt %></td>
+        <td>
+            <a href="/admin/editcook?id=<%-cook.id%>">UP</a>|
+            <a href="/admin/delcook?id=<%-cook.id%>">DEL</a>
+        </td>
+    </tr>
+    <%})%>
+</table>
+<hr/>
+<form class="form-horizontal" method="post" action="/admin/addcook">
+    <legend>添加COOK</legend>
+    <div class="controls-group">
+        <label class="control-label" for="title">名称</label>
+        <div class="controls">
+            <input type="text" id="title" name="title"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="img">图片</label>
+        <div class="controls">
+            <input type="text" id="img" name="img"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">添加</button>
+        </div>
+    </div>
+</form>

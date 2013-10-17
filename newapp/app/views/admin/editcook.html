@@ -1,0 +1,28 @@
+<!-- 面包屑 -->
+<ul class="breadcrumb">
+    <li><a href="/admin/">管理</a><span class="divider">/</span></li>
+    <li><a href="/admin/cooks">Cooks</a><span class="divider">/</span></li>
+    <li class="active">修改Cook</li>
+</ul>
+<form class="form-horizontal" method="post" action="/admin/editcook">
+    <input type="hidden" name="id" value="<%- cook.id %>"/>
+    <legend>修改COOK</legend>
+    <div class="controls-group">
+        <label class="control-label" for="title">名称</label>
+        <div class="controls">
+            <input type="text" id="title" name="title" value="<%- cook.title %>"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="img">图片</label>
+        <div class="controls">
+            <input type="text" id="img" name="img"  value="<%- cook.img %>"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">添加</button>
+        </div>
+    </div>
+</form>

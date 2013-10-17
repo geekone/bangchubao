@@ -3,7 +3,7 @@ var rootPath = path.normalize(__dirname + "/..");		//得到项目跟目录路径
 module.exports  = {
 
 	'develop':{
-		db: 'mongodb://localhost/test',
+		db: 'mongodb://localhost/bangchu8',
 		root : rootPath,
 		port: 3000
 	}

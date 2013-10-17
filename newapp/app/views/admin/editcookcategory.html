@@ -1,0 +1,28 @@
+<!-- 面包屑 -->
+<ul class="breadcrumb">
+    <li><a href="/admin/">管理</a><span class="divider">/</span></li>
+    <li><a href="/admin/cookcategories">Cook分类</a><span class="divider">/</span></li>
+    <li class="active">编辑Cook分类</li>
+</ul>
+<form class="form-horizontal" method="post" action="">
+    <input type="hidden" name="cid" value="<%- category.id %>"/>
+    <legend>修改分类</legend>
+    <div class="control-group">
+        <label class="control-label" for="name">中文名称</label>
+        <div class="controls">
+            <input type="text" id="name" name="name"  value="<%- category.name %>"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="ename">拼音名称</label>
+        <div class="controls">
+            <input type="text" id="ename" name="ename"  value="<%- category.ename %>"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">修改</button>
+        </div>
+    </div>
+</form>

@@ -1,9 +1,72 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<!-- 面包屑 -->
+<ul class="breadcrumb">
+    <li><a href="/admin/">管理</a><span class="divider">/</span></li>
+    <li><a href="/admin/users">用户</a><span class="divider">/</span></li>
+    <li class="active">用户列表</li>
+</ul>
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th><th>名称</th><th>昵称</th><th>密码</th><th>邮件</th><th>电话</th><th>QQ</th><th>建立时间</th><th>管理</th>
+    </tr>
+    <% userlist.forEach(function(user){%>
+    <tr>
+        <td><%- user.id%></td>
+        <td><%- user.username %></td>
+        <td><%- user.nickname %></td>
+        <td><%- user.password %></td>
+        <td><%- user.email %></td>
+        <td><%- user.phone %></td>
+        <td><%- user.qq %></td>
+        <td><%- user.createAt %></td>
+        <td>
+            <a href="/admin/edituser?uid=<%-user.id%>">UP</a>|
+            <a href="/admin/deluser?uid=<%-user.id%>">DEL</a>
+        </td>
+    </tr>
+    <%})%>
+</table>
+<hr/>
+<form class="form-horizontal" method="post" action="/admin/adduser">
+    <legend>添加用户</legend>
+    <div class="controls-group">
+        <label class="control-label" for="username">用户名</label>
+        <div class="controls">
+            <input type="text" id="username" name="username"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="nickname">昵称</label>
+        <div class="controls">
+            <input type="text" id="nickname" name="nickname"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="password">密码</label>
+        <div class="controls">
+            <input type="text" id="password" name="password"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="email">邮件</label>
+        <div class="controls">
+            <input type="text" id="email" name="email"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="phone">电话</label>
+        <div class="controls">
+            <input type="text" id="phone" name="phone"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="qq">QQ</label>
+        <div class="controls">
+            <input type="text" id="qq" name="qq"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">添加</button>
+        </div>
+    </div>
+</form>

@@ -16,11 +16,19 @@ module.exports = function(app){
 
     //资讯分类
         //
-        app.get('/admin/newscategorys/?',admin.newscategory);
+        app.get('/admin/newscategories/?',admin.newscategories);
         app.post('/admin/addnewscate/?',admin.addnewscate);
         app.get('/admin/editnewscate/?',admin.editnewscate);
         app.post('/admin/editnewscate/?',admin.editnewscate);
         app.get('/admin/delnewscate/?',admin.delnewscate);
+
+        app.get('/admin/news/?',admin.news);
+        app.post('/admin/addnews/?',admin.addnews);
+        app.get('/admin/editnews/?',admin.editnews);
+        app.post('/admin/editnews/?',admin.editnews);
+        app.get('/admin/delnews/?',admin.delnews);
+
+
     //user
         app.get('/admin/users/?',admin.users);
         app.post('/admin/adduser/?',admin.adduser);
@@ -29,7 +37,7 @@ module.exports = function(app){
         app.get('/admin/deluser/?',admin.deluser);
 
     //cook
-        app.get('/admin/cookcategorys/?',admin.cookcategorys);
+        app.get('/admin/cookcategories/?',admin.cookcategories);
         app.post('/admin/addcookcate/?',admin.addcookcate);
         app.get('/admin/editcookcate/?',admin.editcookcate);
         app.post('/admin/editcookcate/?',admin.editcookcate);

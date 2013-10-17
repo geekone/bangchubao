@@ -1,0 +1,43 @@
+<!-- 面包屑 -->
+<ul class="breadcrumb">
+    <li><a href="/admin/">管理</a><span class="divider">/</span></li>
+    <li><a href="/admin/cookcategories">Cook分类</a><span class="divider">/</span></li>
+    <li class="active">Cook分类列表</li>
+</ul>
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th><th>分类名称</th><th>拼音名称</th><th>管理</th>
+    </tr>
+    <% categorylist.forEach(function(cate){%>
+    <tr>
+        <td><%- cate.id%></td>
+        <td><%- cate.name %></td>
+        <td><%- cate.ename %></td>
+        <td>
+            <a href="/admin/editcookcate?cid=<%-cate.id%>">UP</a>|
+            <a href="/admin/delcookcate?cid=<%-cate.id%>">DEL</a>
+        </td>
+    </tr>
+    <%})%>
+</table>
+<hr/>
+<form class="form-horizontal" method="post" action="/admin/addcookcate">
+    <legend>添加分类</legend>
+    <div class="controls-group">
+        <label class="control-label" for="name">分类名称</label>
+        <div class="controls">
+            <input type="text" id="name" name="name"/>
+        </div>
+    </div>
+    <div class="controls-group">
+        <label class="control-label" for="ename">拼音名称</label>
+        <div class="controls">
+            <input type="text" id="ename" name="ename"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">添加</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,45 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/">管理</a> <span class="divider">/</span></li>
+    <li><a href="/admin/users">用户</a> <span class="divider">/</span></li>
+    <li class="active">用户列表</li>
+</ul>
+
+<p>
+<form class="form-search" action="/admin/searchuser" method="post" >
+    <div class="input-append">
+        <input type="text" name="username" class="span6 search-query" placeholder="注册用户名">
+        <button type="submit" class="btn">Search</button>
+    </div>
+</form>
+</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>昵称</th>
+        <th>邮件</th>
+        <th>操作</th>
+    </tr>
+    <% users.forEach(function(user){ %>
+    <tr>
+          <td><%- user.id %></td>
+        <td><%- user.username %></td>
+        <td><%- user.nickname %></td>
+        <td><%- user.email %></td>
+        <td>
+            <a href="/admin/deluser?uid=<%-user.id %>">del</a>|
+            <a href="/admin/edituser?uid=<%-user.id %>">edit</a>
+        </td>
+    </tr>
+    <% }); %>
+</table>
+
+<% if(page-1){ %>
+<span style="float:left"><a title="上一页" href="?p=<%= page-1 %>">上一页</a></span>
+
+<% } %>
+
+<% if(usersLen==pagesize){ %>
+<span style="float:right"><a title="下一页" href="?p=<%= page+1 %>">下一页</a></span>
+<% } %>
